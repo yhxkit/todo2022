@@ -14,7 +14,7 @@ import java.util.Optional;
 @Entity
 @Data
 @AllArgsConstructor
-@ToString(exclude = {"authorities"})
+@ToString(exclude = {"authorities", "toDoList"})
 @NoArgsConstructor
 public class Users {
     public Users(String username, String password) {
@@ -43,6 +43,8 @@ public class Users {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     List<Authority> authorities;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.LAZY)
+    List<ToDo> toDoList;
 
 
     public void addAuthority(Role authority) {
@@ -51,4 +53,7 @@ public class Users {
         }
         authorities.add(new Authority(this, authority));
     }
+
+
+
 }

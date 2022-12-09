@@ -1,0 +1,48 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title> ADMIN </title>
+    <th:block th:include="layouts/fragments/common/head"></th:block>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="app" id="app">
+        <header th:replace="layouts/fragments/common/header :: header"></header>
+        <aside th:replace="layouts/fragments/common/menu :: menu"></aside>
+
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
+        <div class="mobile-menu-handle"></div>
+
+        <th:block layout:fragment="content"></th:block>
+
+        <footer th:replace="layouts/fragments/common/footer :: footer"></footer>
+
+
+
+    </div>
+
+</div>
+<!-- Reference block for JS -->
+<div class="ref" id="ref">
+    <div class="color-primary"></div>
+    <div class="chart">
+        <div class="color-primary"></div>
+        <div class="color-secondary"></div>
+    </div>
+</div>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/vendor.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/jquery.form.min.js"></script>
+
+
+<script src="/js/admin_page/main.js"></script>
+<script src="/js/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="/js/datetimepicker/datetimepicker_config.js"></script>
+
+<th:block layout:fragment="script"></th:block>
+
+</body>
+</html>

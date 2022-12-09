@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" data-layout-decorate="~{layouts/sign_layout}">
+
+
+<th:block layout:fragment="content">
+
+    <div class="auth">
+        <div class="auth-container">
+            <div class="card">
+                <header class="auth-header">
+                    <h1 class="auth-title">
+                        <div class="logo">
+                            <span class="l l1"></span>
+                            <span class="l l2"></span>
+                            <span class="l l3"></span>
+                            <span class="l l4"></span>
+                            <span class="l l5"></span>
+                        </div>
+                         관리자
+                    </h1>
+                </header>
+                <div class="auth-content">
+                    <p class="text-center">SIGNUP TO GET INSTANT ACCESS</p>
+                    <form id="signup-form" method="POST" novalidate="">
+
+                        <div class="form-group">
+                            <label for="username">Email</label>
+                            <i id="usernameCheckComplete"></i>
+                            <input type="email" class="form-control underlined" name="username" id="username"
+                                   placeholder="이메일 입력" required="">
+                            <div align="right"><a href onclick="checkAccountDuplicated(event);"><i
+                                    class="fa fa-user-circle-o"> 중복 체크</i></a></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="row" id="passwordarea">
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control underlined" name="password" id="password"
+                                           placeholder="패스워드 입력" required=""></div>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control underlined" name="retype_password"
+                                           id="retype_password" placeholder="패스워드 확인" required=""></div>
+                            </div>
+
+
+                        </div>
+                        <!--<div class="form-group">-->
+                        <!--<label for="agree">-->
+                        <!--<input class="checkbox" name="agree" id="agree" type="checkbox" required="">-->
+                        <!--<span>Agree the terms and-->
+                        <!--<a href="#">policy</a>-->
+                        <!--</span>-->
+                        <!--</label>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-primary"
+                                    onclick="event.preventDefault(); submitRegistration();">가입하기
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-muted text-center">이미 계정이 있으신가요?
+                                <a href="/login">Login</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reference block for JS -->
+
+
+    <script>
+
+        function passwordPrecheck() {
+            let result = true;
+            if (($('#upasswordarea').next().is('span') && $('#passwordarea').next().text() != '') || ($('#password').val() != $('#retype_password').val()) || $('#password').val().length < 8 || $('#retype_password').val().length < 8) {
+                alert("패스워드를 다시 확인하세요");
+                result = false;
+            }
+            return result;
+        }
+
+        function usernamePrecheck() {
+            let result = true;
+
+            if (($('#username').next().is('span') && $('#username').next().text() != '') || $('#username').val() == '') {
+                alert("유효한 이메일 주소일 경우에만 사용할 수 있습니다.");
+                result = false;
+            }
+            return result;
+        }
+
+
+        function submitRegistration() {
+
+            var account = JSON.stringify({
+                'username': $('#username').val(),
+                'password': $('#password').val(),
+                'retypePassword': $('#retype_password').val()
+            });
+
+            if (usernamePrecheck() && passwordPrecheck()) {
+
+                $.ajax({
+                    url: root + "/signup",
+                    type: 'post',
+                    data: account,
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert(data['message']);
+                        if (data['result'] == 'success') {
+                            window.location = root;
+                        }
+                    },
+                    error: function (data) {
+                        alert(JSON.stringify(data));
+                    }
+                });
+            }
+        }
+
+
+        function checkAccountDuplicated(event) {
+            event.preventDefault();
+            const username = $('#username').val();
+            if (usernamePrecheck()) {
+                $.ajax({
+                    url: root + "/signup/validateAccount",
+                    type: 'post',
+                    data: JSON.stringify({'username': username}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert(data['message']);
+                        if (data['result'] == 'success') {
+                            $('#usernameCheckComplete').attr('class', "fa fa-check");
+                        } else if (data['result'] == 'error') {
+                            $('#usernameCheckComplete').attr('class', "fa fa-times");
+                        }
+                    },
+                    error: function (data) {
+                        alert(JSON.stringify(data));
+                    }
+                });
+            }
+        }
+
+
+    </script>
+
+</th:block>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside class="sidebar" th:fragment="menu">
+    <div class="sidebar-container">
+        <div class="sidebar-header">
+            <div class="brand">
+                <div class="logo">
+                    <span class="l l1"></span>
+                    <span class="l l2"></span>
+                    <span class="l l3"></span>
+                    <span class="l l4"></span>
+                    <span class="l l5"></span>
+                    <span class="l l6"></span>
+                </div>
+                 Admin
+            </div>
+        </div>
+        <nav class="menu">
+            <ul class="sidebar-menu metismenu" id="sidebar-menu">
+                <li class="active">
+                    <a href="/">
+                        <i class="fa fa-home"></i> 메인 </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-shield"></i> 관리자 관리
+                        <i class="fa arrow"></i>
+                    </a>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/user_admin/user"> 관리자 권한 </a>
+                        </li>
+                    </ul>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/user_admin/deluser"> 삭제 계정 </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-users"></i> 유저 관리
+                        <i class="fa arrow"></i>
+                    </a>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/user/search"> 유저 검색 </a>
+                            <a href="/user/getCashLog"> 캐쉬 로그 검색 </a>
+                            <a href="/user/getCashInventory"> 캐쉬 인벤 검색 </a>
+                            <a href="/user/getStandByPremium"> 대기 중인 프리미엄 검색 </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-ticket"></i> 마케팅 리타겟팅
+                        <i class="fa arrow"></i>
+                    </a>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/tracking/search-token"> 토큰 관리 </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-gears"></i> 카발 홈페이지 관리
+                        <i class="fa arrow"></i>
+                    </a>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/cabal_home_admin/menu"> 메뉴 관리 </a>
+                        </li>
+                        <li>
+                            <a href="/cabal_home_admin/banner/BANNER_MAIN"> 이미지 배너 관리 </a>
+                        </li>
+                        <li>
+                            <a href="/cabal_home_admin/side_banner/BANNER_QUICK"> 사이드 배너 관리(No Image) </a>
+                        </li>
+                        <li>
+                            <a href="/cabal_home_admin/background"> 배경화면 관리 </a>
+                        </li>
+                        <li>
+                            <a href="/cabal_home_admin/item"> 메인 페이지 아이템 관리 </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-puzzle-piece"></i> 카발 이벤트 관리
+                        <i class="fa arrow"></i>
+                    </a>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/event"> 이벤트 마스터 관리 </a>
+                        </li>
+                        <li>
+                            <a href="/event_banner"> 이벤트 배너 관리 </a>
+                        </li>
+
+                        <li>
+                            <a href="">
+                                <i class="fa fa-list-alt"></i>
+                                이벤트 상세<i class="fa arrow"></i> </a>
+                            <ul class="sidebar-nav">
+                                <li>
+                                    <a href="/event_stat/marble">마블 이벤트</a>
+                                </li>
+                                <li>
+                                    <a href="/event_stat/jumping">점핑 이벤트</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="">
+                        <i class="fa fa-gift"></i> 지급
+                        <i class="fa arrow"></i>
+                    </a>
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a href="/game/give/cash"> 캐쉬 지급 </a>
+                        </li>
+                        <li>
+                            <a href="/game/give/cash/bulk"> 캐쉬 일괄 지급 </a>
+                        </li>
+                        <li>
+                            <a href="/game/give/item"> 아이템 지급 </a>
+                        </li>
+                        <li>
+                            <a href="/game/give/item/bulk"> 아이템 일괄 지급 </a>
+                        </li>
+                        <li>
+                            <a href="/game/give/premium"> 프리미엄 지급 </a>
+                        </li>
+                        <li>
+                            <a href="/game/give/premium/bulk"> 프리미엄 일괄 지급 </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+</body>
+</html>
+
+

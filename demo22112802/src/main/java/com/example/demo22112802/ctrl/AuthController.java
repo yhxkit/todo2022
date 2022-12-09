@@ -7,8 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController
 {
 
-    @RequestMapping("/test")
+    @RequestMapping("/main")
     public  String test(){
-        return "/temp/test";
+        System.out.println("메인 컨트롤러에 안들어오나?");
+        return "main";
+    }
+
+
+    @RequestMapping("/login")
+    public  String login(){
+        System.out.println("로그인 컨트롤러에 안들어오나?");
+        return "login";
     }
 }
