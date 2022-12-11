@@ -26,11 +26,11 @@
 
                         <div class="form-group">
                             <label for="username">Email</label>
-                            <i id="usernameCheckComplete"></i>
+                            <em id="usernameCheckComplete"></em>
                             <input type="email" class="form-control underlined" name="username" id="username"
                                    placeholder="이메일 입력" required="">
-                            <div align="right"><a href onclick="checkAccountDuplicated(event);"><i
-                                    class="fa fa-user-circle-o"> 중복 체크</i></a></div>
+                            <div align="right"><button type="button" class="btn btn-primary-outline" onclick="checkAccountDuplicated()"><i
+                                    class="fa fa-user-circle-o"> 중복 체크</i></button></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -104,14 +104,14 @@
             if (usernamePrecheck() && passwordPrecheck()) {
 
                 $.ajax({
-                    url: root + "/signup",
+                    url: "/signup",
                     type: 'post',
                     data: account,
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
-                        alert(data['message']);
-                        if (data['result'] == 'success') {
-                            window.location = root;
+                        alert(data['result'] ? data['username']+'님 환영합니다' : '가입 실패');
+                        if (data['result'] ) {
+                            location.href = "/";
                         }
                     },
                     error: function (data) {
@@ -122,20 +122,21 @@
         }
 
 
-        function checkAccountDuplicated(event) {
-            event.preventDefault();
+        function checkAccountDuplicated() {
             const username = $('#username').val();
             if (usernamePrecheck()) {
                 $.ajax({
-                    url: root + "/signup/validateAccount",
+                    url: "/signup/validateAccount",
                     type: 'post',
                     data: JSON.stringify({'username': username}),
                     contentType: 'application/json; charset=utf-8',
-                    success: function (data) {
-                        alert(data['message']);
-                        if (data['result'] == 'success') {
+                    success: function (result) {
+                        if (result) {
+                            alert('사용 가능한 계정입니다')
                             $('#usernameCheckComplete').attr('class', "fa fa-check");
-                        } else if (data['result'] == 'error') {
+                        } else {
+
+                            alert('이미 사용중인 계정입니다')
                             $('#usernameCheckComplete').attr('class', "fa fa-times");
                         }
                     },

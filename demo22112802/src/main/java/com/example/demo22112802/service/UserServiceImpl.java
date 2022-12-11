@@ -3,6 +3,8 @@ package com.example.demo22112802.service;
 import com.example.demo22112802.dao.AuthorityRepository;
 import com.example.demo22112802.dao.RoleRepository;
 import com.example.demo22112802.dao.UserRepository;
+import com.example.demo22112802.model.Role;
+import com.example.demo22112802.model.SignUpResult;
 import com.example.demo22112802.model.Users;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,5 +66,25 @@ public class UserServiceImpl implements UserDetailsService {
         user.getAuthorities().forEach(authority -> grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority().getRoleName())));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
 
+    }
+
+
+    public boolean checkDuplicatedAccount(String username){
+        return userRepository.existsUsersByUsername(username);
+    }
+
+    public SignUpResult signUpUser(Users user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Optional<Role> userRole = roleRepository.findById("USER");
+        if(userRole.isPresent()){
+            user.addAuthority(userRole.get());
+        }
+
+        Users newuser = null;
+        if(!checkDuplicatedAccount(user.getUsername())){
+            newuser = userRepository.save(user);
+        }
+        SignUpResult result = new SignUpResult( newuser == null ? user.getUsername() : newuser.getUsername(), newuser == null ? false : true);
+        return result;
     }
 }

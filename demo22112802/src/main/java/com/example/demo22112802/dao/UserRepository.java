@@ -10,4 +10,6 @@ public interface UserRepository  extends JpaRepository<Users, String> {
 
     @Transactional
     void deleteUsersByUsername(String username);
+
+     boolean existsUsersByUsername(String username);
 }

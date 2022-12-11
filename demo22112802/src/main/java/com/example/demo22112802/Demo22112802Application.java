@@ -34,7 +34,7 @@ public class Demo22112802Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Role admRole = new Role("ADMIN");
-        Role guestRole = new Role("GUEST");
+        Role guestRole = new Role("USER");
 
         roleRepository.saveAndFlush(admRole);
         roleRepository.saveAndFlush(guestRole);

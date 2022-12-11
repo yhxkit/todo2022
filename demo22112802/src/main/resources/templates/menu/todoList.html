@@ -17,18 +17,6 @@
             <form name="banner_form">
                 <div class="card card-block">
 
-<!--                    <div class="form-group row">-->
-<!--                        <label class="col-sm-2 form-control-label text-xs-right"> Category: </label>-->
-<!--                        <div class="col-sm-10">-->
-<!--                            <select class="c-select form-control boxed" id="bn_select_box" onchange="setbanner();">-->
-<!--                                <option value="BANNER_QUICK" th:selected="${fixedOption == 'BANNER_QUICK'}">퀵 배너</option>-->
-<!--                                <option value="BANNER_CHARGE" th:selected="${fixedOption == 'BANNER_CHARGE'}">CC 충전</option>-->
-<!--                                <option value="BANNER_MAINTENANCE" th:selected="${fixedOption == 'BANNER_MAINTENANCE'}">정기-->
-<!--                                    업데이트-->
-<!--                                </option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
 
                     <div class="form-group row">
                         <label class="col-sm-2 form-control-label text-xs-right"> To Do List : </label>
@@ -65,7 +53,7 @@
 
 
                             <div class="image-container">
-                                <a onclick="add_quickbanner_edit_box();">
+                                <a onclick="add_todo_edit_box();">
                                     <div class="image-container new">
                                         <div class="image">
                                             <i class="fa fa-plus"></i>
@@ -94,7 +82,7 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h4 class="modal-title">할일 상세 설정</h4>
+                        <h4 class="modal-title">To Do 상세 설정</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
@@ -104,24 +92,12 @@
                     <div class="modal-body modal-tab-container">
                         <div class="tab-content modal-tab-content card card-block">
                             <div class="form-group">
-                                <label for="bnNoteInfo">NOTE</label>
-                                <input type="text" class="form-control" id="bnNoteInfo" placeholder="Note">
+                                <label for="endDateInfo">마감일</label>
+                                <input type="text" class="form-control" id="endDateInfo" placeholder="마감일">
                             </div>
                             <div class="form-group">
-                                <label for="bnUrlInfo">URL</label>
-                                <input type="text" class="form-control" id="bnUrlInfo" placeholder="Url">
-                            </div>
-                            <div class="form-group">
-                                <label for="bnCssClassInfo">CLASS</label>
-                                <input type="text" class="form-control" id="bnCssClassInfo" placeholder="Class">
-                            </div>
-                            <div class="form-group">
-                                <label for="bnTextInfo">Text</label>
-                                <input type="text" class="form-control" id="bnTextInfo" placeholder="Text">
-                            </div>
-                            <div class="form-group">
-                                <label for="bnTargetInfo">Target</label>
-                                <input type="text" class="form-control" id="bnTargetInfo" placeholder="Target">
+                                <label for="toDoMemoInfo">메모</label>
+                                <input type="text" class="form-control" id="toDoMemoInfo" placeholder="메모">
                             </div>
                         </div>
 
@@ -129,7 +105,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                onclick="bannerInfoToAppend.attr('data-bnurl', $('#bnUrlInfo').val());  bannerInfoToAppend.attr('data-bntext', $('#bnTextInfo').val()); bannerInfoToAppend.attr('data-bntarget', $('#bnTargetInfo').val()); bannerInfoToAppend.attr('data-bncssclass', $('#bnCssClassInfo').val()); bannerInfoToAppend.attr('data-bnnote', $('#bnNoteInfo').val());  ">
+                                onclick="todoInfoToAppend.attr('data-tododeadlineinfo', $('#toDoDeadLineInfo').val());  todoInfoToAppend.attr('data-todomemoinfo', $('#toDoMemoInfo').val());">
                             Complete
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -153,7 +129,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>배너를 삭제합니다</p>
+                        <p>삭제합니다</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
@@ -171,23 +147,23 @@
 
 
         <script>
-            let bannerInfoToAppend;
+            let todoInfoToAppend;
             let bannerToRemove;
 
-            function add_quickbanner_edit_box() {
+            function add_todo_edit_box() {
 
                 const thum = '<div class="image-container"><div class="controls">'
                     + '<a class="control-btn move">'
                     + '<i class="fa fa-arrows"></i>'
                     + '</a>'
-                    + ' <a class="control-btn new" data-toggle="modal" data-target="#banner-info"  onclick = "bannerInfoToAppend = $(this).parent().parent().find(\'.uploadingimg input \'); $(\'#bnTextInfo\').val(bannerInfoToAppend.attr(\'data-bntext\'));   $(\'#bnTargetInfo\').val(bannerInfoToAppend.attr(\'data-bntarget\'));  $(\'#bnCssClassInfo\').val(bannerInfoToAppend.attr(\'data-bncssclass\'));  $(\'#bnUrlInfo\').val(bannerInfoToAppend.attr(\'data-bnurl\'));  $(\'#bnNoteInfo\').val(bannerInfoToAppend.attr(\'data-bnnote\')); ">'
+                    + ' <a class="control-btn new" data-toggle="modal" data-target="#banner-info"  onclick = "todoInfoToAppend = $(this).parent().parent().find(\'.uploadingimg input \'); $(\'#toDoDeadLineInfo\').val(todoInfoToAppend.attr(\'data-tododeadlineinfo\'));   $(\'#toDoMemoInfo\').val(todoInfoToAppend.attr(\'data-todomemoinfo\'));   ">'
                     + '  <i class="fa fa-pencil"></i>'
                     + '</a>'
                     + ' <a class="control-btn remove" data-toggle="modal" data-target="#confirm-modal" onclick="bannerToRemove = $(this).parent().parent();">'
                     + '<i class="fa fa-trash-o"></i>'
                     + '</a>'
                     + '</div>'
-                    + '<div class="text uploadingimg todo_title_area"><input class="banner_text" style="height: 60px; width: 600px" type="text" placeholder="타이틀 입력" /></div>'
+                    + '<div class="text uploadingimg todo_title_area"><input class="banner_text" style="height: 60px; width: 600px" type="text" placeholder="제목을 입력하세요" /></div>'
                     + '</div>';
 
                 $('#banner-thumbnail-container').append(thum);
@@ -208,7 +184,7 @@
 
                 for (let i = 0; i < bnnum; i++) {
                     let Banner = {};
-                    // console.log("모든 배너 이름은 " + $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val());
+                    // console.log("모든 이름은 " + $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val());
                     Banner.bnRole = selectedBnOption;
                     Banner.bnIdx = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bnidx');
                     Banner.bnFileName = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val();
@@ -247,7 +223,7 @@
 
             function setbanner() {
                 var selected_bn_option = $('#bn_select_box option:selected').val();
-                // console.log("현재 선택된 배너 페이지 " + selected_bn_option);
+                // console.log("현재 선택된  페이지 " + selected_bn_option);
                 window.location.href = root + "/home_admin/side_banner/" + selected_bn_option;
             }
 
