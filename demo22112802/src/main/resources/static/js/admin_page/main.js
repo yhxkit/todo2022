@@ -15,7 +15,7 @@ function getMessage(data){
 }
 
 Dropzone.options.bannerImgUpload = { //camelized html id
-    url: root + "/cabal_home_admin/banner/img",
+    url: root + "/home_admin/banner/img",
     renameFile: function (file) {
         var oldName = file.name;
         var dotIdx = oldName.lastIndexOf('.');
@@ -71,7 +71,7 @@ Dropzone.options.bannerImgUpload = { //camelized html id
 
 
 Dropzone.options.backgroundImgUpload = { //camelized html id //배경 이미지는 css 쪽에서 관리해야 해서 리네임하지 않음
-    url: root + "/cabal_home_admin/background/img",
+    url: root + "/home_admin/background/img",
     maxFiles: 1,
     dictDefaultMessage: "업로드할 배경 이미지를 드랍하세요",
     addRemoveLinks: true,
@@ -118,7 +118,7 @@ Dropzone.options.backgroundImgUpload = { //camelized html id //배경 이미지�
 
 
 Dropzone.options.itemImgUpload = { //camelized html id
-    url: root + "/cabal_home_admin/item/img",
+    url: root + "/home_admin/item/img",
     renameFile: function (file) {
         var oldName = file.name;
         var dotIdx = oldName.lastIndexOf('.');
