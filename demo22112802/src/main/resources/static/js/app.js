@@ -1339,6 +1339,8 @@ $(function () {
 		}
 		else {
 			$styleLink.attr('href', 'css/app.css');
+
+            // $styleLink.attr('href', 'css/app-seagreen.css');
 		}
 
 		// App classes

@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .antMatchers("/js/**", "/css/**", "/fonts/**", "/assets/**").permitAll()
                 .antMatchers("/h2console/**", "/resources/**", "/files/**").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/main").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()

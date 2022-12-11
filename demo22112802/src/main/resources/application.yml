@@ -14,6 +14,7 @@ spring:
       path: /h2console
       enabled: true
   jpa:
+    database: h2
     hibernate:
       ddl-auto: create
     show-sql: true
