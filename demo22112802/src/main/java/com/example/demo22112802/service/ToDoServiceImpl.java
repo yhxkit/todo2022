@@ -17,4 +17,7 @@ public class ToDoServiceImpl {
         return toDoRepository.getAllByOwnerUsername(ownerName);
     }
 
+    public void saveToDoList (List<ToDo> toDoList){
+        toDoRepository.saveAll(toDoList);
+    }
 }

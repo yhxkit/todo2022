@@ -87,4 +87,8 @@ public class UserServiceImpl implements UserDetailsService {
         SignUpResult result = new SignUpResult( newuser == null ? user.getUsername() : newuser.getUsername(), newuser == null ? false : true);
         return result;
     }
+
+    public Users getUserByName(String username){
+        return userRepository.getByUsername(username);
+    }
 }

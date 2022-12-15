@@ -30,19 +30,19 @@
                                             <i class="fa fa-arrows"></i>
                                         </a>
                                         <a class="control-btn new" data-toggle="modal" data-target="#banner-info"
-                                           onclick="bannerInfoToAppend = $(this).parent().parent().find('.uploadingimg input'); $('#bnTextInfo').val(bannerInfoToAppend.attr('data-bntext')); $('#bnTargetInfo').val(bannerInfoToAppend.attr('data-bntarget')); $('#bnCssClassInfo').val(bannerInfoToAppend.attr('data-bncssclass')); $('#bnUrlInfo').val(bannerInfoToAppend.attr('data-bnurl'));  $('#bnNoteInfo').val(bannerInfoToAppend.attr('data-bnnote')); ">
+                                           onclick="todoInfoToAppend = $(this).parent().parent().find('.uploadingimg input'); $('#endDateInfo').val(todoInfoToAppend.attr('data-enddatetinfo')); $('#toDoMemoInfo').val(todoInfoToAppend.attr('data-todomemoinfo'));  ">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                         <a class="control-btn remove" data-toggle="modal"
                                            data-target="#confirm-modal"
-                                           onclick="bannerToRemove = $(this).parent().parent();">
+                                           onclick="todoToRemove = $(this).parent().parent();">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
 
 
                                     <div class="text uploadingimg ">
-                                        <input class="menu_text todo_title_area" style="height: 60px; width: 600px" type="text" placeholder="제목을 입력하세요"
+                                        <input class="todo_text todo_title_area" style="height: 60px; width: 600px" type="text" placeholder="제목을 입력하세요"
                                                th:data-todoidx="*{idx}"  th:data-todotitle="*{title}"
                                                th:value="*{title}"/>
                                     </div>
@@ -68,7 +68,7 @@
                     <div class="form-group row">
                         <div class="col-sm-10 col-sm-offset-2">
                             <button type="submit" class="btn btn-primary"
-                                    th:onclick="'event.preventDefault(); javascript:submit_banner();'"> Submit
+                                    th:onclick="'event.preventDefault(); javascript:submit_todo();'"> Submit
                             </button>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                onclick="todoInfoToAppend.attr('data-tododeadlineinfo', $('#toDoDeadLineInfo').val());  todoInfoToAppend.attr('data-todomemoinfo', $('#toDoMemoInfo').val());">
+                                onclick="todoInfoToAppend.attr('data-enddateinfo', $('#endDateInfo').val());  todoInfoToAppend.attr('data-todomemoinfo', $('#toDoMemoInfo').val());">
                             Complete
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                onclick=" bannerToRemove.remove();  ">
+                                onclick="todoToRemove.remove();  ">
                             Yes
                         </button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -148,7 +148,7 @@
 
         <script>
             let todoInfoToAppend;
-            let bannerToRemove;
+            let todoToRemove;
 
             function add_todo_edit_box() {
 
@@ -156,14 +156,14 @@
                     + '<a class="control-btn move">'
                     + '<i class="fa fa-arrows"></i>'
                     + '</a>'
-                    + ' <a class="control-btn new" data-toggle="modal" data-target="#banner-info"  onclick = "todoInfoToAppend = $(this).parent().parent().find(\'.uploadingimg input \'); $(\'#toDoDeadLineInfo\').val(todoInfoToAppend.attr(\'data-tododeadlineinfo\'));   $(\'#toDoMemoInfo\').val(todoInfoToAppend.attr(\'data-todomemoinfo\'));   ">'
+                    + ' <a class="control-btn new" data-toggle="modal" data-target="#banner-info"  onclick = "todoInfoToAppend = $(this).parent().parent().find(\'.uploadingimg input \'); $(\'#endDateInfo\').val(todoInfoToAppend.attr(\'data-enddateinfo\'));   $(\'#toDoMemoInfo\').val(todoInfoToAppend.attr(\'data-todomemoinfo\'));   ">'
                     + '  <i class="fa fa-pencil"></i>'
                     + '</a>'
-                    + ' <a class="control-btn remove" data-toggle="modal" data-target="#confirm-modal" onclick="bannerToRemove = $(this).parent().parent();">'
+                    + ' <a class="control-btn remove" data-toggle="modal" data-target="#confirm-modal" onclick="todoToRemove = $(this).parent().parent();">'
                     + '<i class="fa fa-trash-o"></i>'
                     + '</a>'
                     + '</div>'
-                    + '<div class="text uploadingimg todo_title_area"><input class="banner_text" style="height: 60px; width: 600px" type="text" placeholder="제목을 입력하세요" /></div>'
+                    + '<div class="text uploadingimg"><input class="todo_text todo_title_area" style="height: 60px; width: 600px" type="text" placeholder="제목을 입력하세요" /></div>'
                     + '</div>';
 
                 $('#banner-thumbnail-container').append(thum);
@@ -172,48 +172,42 @@
             }
 
 
-            function submit_banner() {
+            function submit_todo() {
 
                 let sending_obj = {};
 
-                const selectedBnOption = $('#bn_select_box option:selected').val();
-                const bnnum = $('#banner-thumbnail-container .uploadingimg').length;
+                const todonum = $('#banner-thumbnail-container .uploadingimg').length;
 
-                let banner = new Array();
+                let todo = new Array();
 
 
-                for (let i = 0; i < bnnum; i++) {
-                    let Banner = {};
-                    // console.log("모든 이름은 " + $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val());
-                    Banner.bnRole = selectedBnOption;
-                    Banner.bnIdx = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bnidx');
-                    Banner.bnFileName = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val();
-                    Banner.bnUrl = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bnurl');
-                    Banner.bnNote = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bnnote');
-                    Banner.bnCssClass = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bncssclass');
-                    Banner.bnTarget = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bntarget');
-                    Banner.bnText = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('bntext');
-                    banner.push(Banner);
+                for (let i = 0; i < todonum ; i++) {
+                    let ToDo = {};
+                    console.log("모든 이름은 " + $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val());
+
+                    ToDo.priority = i;
+                    ToDo.title = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val();
+                    ToDo.endDateInfo = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('enddateinfo');
+                    ToDo.comment = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('todomemoinfo');
+                    todo.push(ToDo);
                 }
-                sending_obj['bannerList'] = banner;
-                sending_obj['bannerRole'] = selectedBnOption;
+                sending_obj['todoList'] = todo;
 
-                // console.log("보낼 결과 " + JSON.stringify(sending_obj));
+                console.log("보낼 결과 " + JSON.stringify(sending_obj));
 
-                complete_bn_upload(JSON.stringify(sending_obj), selectedBnOption);
+                 complete_todo_upload(JSON.stringify(sending_obj));
 
             }
 
-            function complete_bn_upload(sending_obj, selectedBnOption) {
+            function complete_todo_upload(sending_obj) {
                 $.ajax({
-                    url: root + '/home_admin/banner',
+                    url: '/todo/upload',
                     type: 'post',
                     data: sending_obj,
                     contentType: 'application/json; charset=utf-8',
                     success: function (data) {
                         // console.log(JSON.stringify(data));
                         alert(data['message']);
-                        window.location.href = root + "/home_admin/side_banner/" + selectedBnOption;
                     },
                     error: function (data) {
                         getMessage(data);
@@ -221,11 +215,6 @@
                 });
             }
 
-            function setbanner() {
-                var selected_bn_option = $('#bn_select_box option:selected').val();
-                // console.log("현재 선택된  페이지 " + selected_bn_option);
-                window.location.href = root + "/home_admin/side_banner/" + selected_bn_option;
-            }
 
 
         </script>
