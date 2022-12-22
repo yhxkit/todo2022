@@ -7,5 +7,6 @@ import java.util.List;
 
 
 public interface ToDoRepository extends JpaRepository<ToDo, Long> {
-    List<ToDo> getAllByOwnerUsername(String ownerName);
+    List<ToDo> getAllByOwnerUsernameOrderByPriority(String ownerName);
+    void deleteAllByOwnerUsername(String ownerName);
 }

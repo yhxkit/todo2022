@@ -18,7 +18,7 @@ public class ToDo {
     public ToDo(long priority, String title, String comment, Users owner){
         this.priority = priority;
         this.title = title;
-        this.comment = comment;
+        this.toDoMemoInfo = comment;
         this.owner = owner;
     }
 
@@ -26,13 +26,13 @@ public class ToDo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idx;
 
+    @Column(nullable = false)
     private long priority; // 유저별 투두인덱스를 어떻게 줄 수 있을까?.
 
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String comment;
+    private String toDoMemoInfo;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

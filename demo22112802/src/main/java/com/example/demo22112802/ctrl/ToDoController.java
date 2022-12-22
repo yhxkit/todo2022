@@ -37,12 +37,8 @@ public class ToDoController {
 
         Users user = userService.getUserByName(username);
 
-        for(ToDo td : list.getTodoList()){
-            System.out.println(username + ":" + td);
-            td.setOwner(user);
-        }
 
-        toDoService.saveToDoList(list.getTodoList());
+        toDoService.saveToDoList(user, list.getTodoList());
         return "menu/toDoList";
     }
 }

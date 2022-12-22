@@ -30,7 +30,7 @@
                                             <i class="fa fa-arrows"></i>
                                         </a>
                                         <a class="control-btn new" data-toggle="modal" data-target="#banner-info"
-                                           onclick="todoInfoToAppend = $(this).parent().parent().find('.uploadingimg input'); $('#endDateInfo').val(todoInfoToAppend.attr('data-enddatetinfo')); $('#toDoMemoInfo').val(todoInfoToAppend.attr('data-todomemoinfo'));  ">
+                                           onclick="todoInfoToAppend = $(this).parent().parent().find('.uploadingimg input'); $('#endDateInfo').val(todoInfoToAppend.attr('data-enddateinfo')); $('#toDoMemoInfo').val(todoInfoToAppend.attr('data-todomemoinfo'));  ">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                         <a class="control-btn remove" data-toggle="modal"
@@ -43,7 +43,7 @@
 
                                     <div class="text uploadingimg ">
                                         <input class="todo_text todo_title_area" style="height: 60px; width: 600px" type="text" placeholder="제목을 입력하세요"
-                                               th:data-todoidx="*{idx}"  th:data-todotitle="*{title}"
+                                               th:data-todoidx="*{idx}"  th:data-todotitle="*{title}" th:data-enddateinfo="*{endDateInfo}" th:data-todomemoinfo="*{toDoMemoInfo}"
                                                th:value="*{title}"/>
                                     </div>
                                 </div>
@@ -185,10 +185,11 @@
                     let ToDo = {};
                     console.log("모든 이름은 " + $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val());
 
+                    ToDo.idx = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('todoidx');
                     ToDo.priority = i;
                     ToDo.title = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').val();
                     ToDo.endDateInfo = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('enddateinfo');
-                    ToDo.comment = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('todomemoinfo');
+                    ToDo.toDoMemoInfo = $('#banner-thumbnail-container .uploadingimg').eq(i).find('input').data('todomemoinfo');
                     todo.push(ToDo);
                 }
                 sending_obj['todoList'] = todo;
