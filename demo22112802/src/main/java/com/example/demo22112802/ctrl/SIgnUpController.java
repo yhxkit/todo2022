@@ -22,4 +22,5 @@ public class SIgnUpController {
     public boolean valiadCheck(@RequestBody Users user){
         return !userService.checkDuplicatedAccount(user.getUsername());
     }
+
 }

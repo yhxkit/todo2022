@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ToDoRepository extends JpaRepository<ToDo, Long> {
     List<ToDo> getAllByOwnerUsernameOrderByPriority(String ownerName);
+    List<ToDo> getAllOrOrderByIdxDesc();
     void deleteAllByOwnerUsername(String ownerName);
 }

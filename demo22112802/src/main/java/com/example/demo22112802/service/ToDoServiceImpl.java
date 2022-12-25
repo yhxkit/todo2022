@@ -19,6 +19,10 @@ public class ToDoServiceImpl {
         return toDoRepository.getAllByOwnerUsernameOrderByPriority(ownerName);
     }
 
+    public List<ToDo> getAllToDoList (){
+        return toDoRepository.getAllOrOrderByIdxDesc();
+    }
+
     @Transactional
     public void saveToDoList (Users user, List<ToDo> toDoList){
 
